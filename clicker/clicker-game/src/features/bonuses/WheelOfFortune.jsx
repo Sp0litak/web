@@ -14,7 +14,7 @@ const segments = [
 export default function WheelOfFortune({ addCredits, activateBooster, activateAntibonus }) {
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState(null);
-  const [cooldown, setCooldown] = useState(0);  // cooldown в секундах
+  const [cooldown, setCooldown] = useState(0);
   const wheelRef = useRef(null);
   const cooldownIntervalRef = useRef(null);
 
@@ -34,7 +34,7 @@ export default function WheelOfFortune({ addCredits, activateBooster, activateAn
   }, [cooldown]);
 
   const spinWheel = () => {
-    if (spinning || cooldown > 0) return;  // если крутится или в КД — не крутим
+    if (spinning || cooldown > 0) return;
     setSpinning(true);
     setResult(null);
 
@@ -63,7 +63,7 @@ export default function WheelOfFortune({ addCredits, activateBooster, activateAn
         activateAntibonus();
       }
 
-      setCooldown(30); // ставим КД на 30 секунд после вращения
+      setCooldown(30);
     }, 4000);
   };
 
@@ -97,7 +97,7 @@ export default function WheelOfFortune({ addCredits, activateBooster, activateAn
         role="button"
         tabIndex={0}
         onKeyDown={e => { if ((e.key === 'Enter' || e.key === ' ') && !spinning && cooldown === 0) spinWheel(); }}
-        title={spinning ? 'Вращается...' : cooldown > 0 ? `Крути доступно через ${cooldown} сек.` : 'Нажмите чтобы крутить колесо фортуны'}
+        title={spinning ? 'Обертається...' : cooldown > 0 ? `Оберти доступно через ${cooldown} сек.` : 'Натисніть, щоб крутити колесо удачі'}
       >
         <div style={{
           position: 'absolute',

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './AntiBonusPanel.module.scss';
 
 const AntiBonusPanel = ({
-  antibonusStates = {},  // если пропс не пришёл, будет пустой объект
+  antibonusStates = {},
   activateAntibonus,
 }) => {
   const handleClick = (type) => {
@@ -29,7 +29,6 @@ const AntiBonusPanel = ({
     <div className={styles.panel}>
       <h2>Антибонуси</h2>
       {buttons.map(({ label, type }) => {
-        // если antibonusStates нет или ключа type - подставляем значения по умолчанию
         const state = antibonusStates && antibonusStates[type]
           ? antibonusStates[type]
           : { active: false, cooldown: 0 };

@@ -37,13 +37,11 @@ function App() {
     skins,
   } = useClicker();
 
-  // Додаткові кредити з колеса фортуни
   const [wheelCredits, setWheelCredits] = useState(0);
 
-  // Обгортка для правильного обнулення при престижі
   const handlePrestige = () => {
-    setWheelCredits(0); // обнуляємо wheelCredits
-    doPrestige();       // викликаємо логіку престижу
+    setWheelCredits(0); 
+    doPrestige();
   };
 
   return (
@@ -80,7 +78,7 @@ function App() {
 
       <PrestigePanel
         prestigePoints={prestigePoints}
-        doPrestige={handlePrestige} // ← важливо
+        doPrestige={handlePrestige}
         resetProgress={resetProgress}
       />
 

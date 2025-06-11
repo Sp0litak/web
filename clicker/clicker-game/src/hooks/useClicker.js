@@ -47,7 +47,6 @@ export const useClicker = () => {
 
   const addCredits = (amount) => setCredits(c => c + amount);
 
-  // Загрузка сохранения из IndexedDB при старте
   useEffect(() => {
     async function load() {
       const saved = await get('clickerSave');
@@ -66,7 +65,6 @@ export const useClicker = () => {
     load();
   }, []);
 
-  // Автосохранение каждые 5 секунд
   useEffect(() => {
     const interval = setInterval(() => {
       set('clickerSave', {
@@ -81,7 +79,6 @@ export const useClicker = () => {
     return () => clearInterval(interval);
   }, [credits, clickValue, upgrades, prestigePoints, autoClickerActive, skin]);
 
-  // Автокликер
   useEffect(() => {
     if (autoClickerActive) {
       autoClickerInterval.current = setInterval(() => {
@@ -93,7 +90,6 @@ export const useClicker = () => {
     return () => clearInterval(autoClickerInterval.current);
   }, [autoClickerActive, clickValue]);
 
-  // Бустер
   useEffect(() => {
     if (boosterActive) {
       boosterTimeout.current = setTimeout(() => {
@@ -116,7 +112,6 @@ export const useClicker = () => {
     };
   }, [boosterActive]);
 
-  // Антибонус
   useEffect(() => {
     if (antibonusActive) {
       antibonusTimeout.current = setTimeout(() => {
@@ -139,7 +134,6 @@ export const useClicker = () => {
     };
   }, [antibonusActive]);
 
-  // Логика клика с учетом бонусов и престижных очков
   const increaseCredits = () => {
     const antiMultiplier = antibonusActive ? 0.2 : 1;
     const boosterMultiplier = boosterActive ? 2 : 1;
@@ -147,7 +141,6 @@ export const useClicker = () => {
     setCredits(c => c + clickValue * boosterMultiplier * antiMultiplier * prestigeBonus);
   };
 
-  // Покупка апгрейда (с удалением апгрейда после покупки)
   const buyUpgrade = (id) => {
     const upgrade = upgrades.find(u => u.id === id);
     if (!upgrade || credits < upgrade.price) return;
@@ -156,32 +149,25 @@ export const useClicker = () => {
 
     const { bonus } = upgrade;
     if (bonus.includes('x') && bonus.includes('Speed') && autoClickerActive) {
-      // Ускорение автокликера в 2 раза
       clearInterval(autoClickerInterval.current);
       autoClickerInterval.current = setInterval(() => {
         setCredits(c => c + clickValue);
       }, 500);
     } else if (bonus.startsWith('x')) {
-      // Множитель клика
       const multiplier = Number(bonus.replace('x', ''));
       setClickValue(cv => cv * multiplier);
     } else if (bonus.startsWith('+')) {
-      // Добавка к клику
       const value = Number(bonus.replace('+', ''));
       setClickValue(cv => cv + value);
     } else if (bonus.includes('/s')) {
-      // Включение автокликера
       setAutoClickerActive(true);
     }
 
-    // Удаляем купленный апгрейд из списка
     setUpgrades(prev => prev.filter(u => u.id !== id));
   };
 
-  // Проверка возможности открыть кейс
   const canOpenCase = () => Date.now() - lastCaseOpenTime >= 30000;
 
-  // Открытие кейса с наградой
   const openCase = () => {
     const now = Date.now();
     if (!canOpenCase()) return null;
@@ -191,7 +177,6 @@ export const useClicker = () => {
     return reward;
   };
 
-  // Остаток кулдауна кейса в секундах
   const getCaseCooldown = () => {
     const remaining = 30000 - (Date.now() - lastCaseOpenTime);
     return remaining > 0 ? Math.ceil(remaining / 1000) : 0;
@@ -216,7 +201,6 @@ export const useClicker = () => {
     }
   };
 
-  // Престиж — сброс прогресса с начислением очков
   const doPrestige = () => {
     const gainedPoints = Math.floor(credits / 1000);
     if (gainedPoints > 0) {
@@ -227,7 +211,6 @@ export const useClicker = () => {
     }
   };
 
-  // Полный сброс прогресса
   const resetProgress = () => {
     setCredits(0);
     setClickValue(1);
@@ -262,7 +245,6 @@ export const useClicker = () => {
     });
   };
 
-  // Смена скина (покупка, если нужно)
   const changeSkin = (newSkin) => {
     const skinInfo = skins.find(s => s.id === newSkin);
     if (!skinInfo) return;
@@ -273,7 +255,7 @@ export const useClicker = () => {
         const updated = [...ownedSkins, newSkin];
         setOwnedSkins(updated);
         localStorage.setItem('ownedSkins', JSON.stringify(updated));
-      } else return; // Недостатньо кредитів
+      } else return;
     }
 
     setSkin(newSkin);

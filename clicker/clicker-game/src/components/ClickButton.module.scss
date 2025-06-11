@@ -1,12 +1,8 @@
 .button {
-  /* Основной фон — CSS-переменная */
   background-color: var(--button-bg);
 
-  /* Чтобы затемнить фон на 10%, используем filter brightness */
-  /* Значение brightness 90% — примерно затемняет цвет на 10% */
   filter: brightness(90%);
 
-  /* Другие стили кнопки */
   color: white;
   padding: 10px 20px;
   border: none;
@@ -15,7 +11,6 @@
   transition: filter 0.3s ease;
 
   &:hover {
-    /* Еще сильнее затемняем при наведении */
     filter: brightness(75%);
   }
 }

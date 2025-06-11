@@ -13,7 +13,6 @@ const BonusPanel = ({
   const [cooldown, setCooldown] = useState(0);
 
   useEffect(() => {
-    // Обновляем cooldown сразу при монтировании и каждую секунду
     setCooldown(getCaseCooldown());
 
     const interval = setInterval(() => {
@@ -32,7 +31,7 @@ const BonusPanel = ({
     const reward = openCase();
     if (reward !== null) {
       alert(`🎁 Ви відкрили кейс і отримали +${reward} кредитів!`);
-      setCooldown(getCaseCooldown()); // обновляем кулдаун сразу после открытия
+      setCooldown(getCaseCooldown());
     }
   };
 
