@@ -1,0 +1,40 @@
+/* App.module.scss */
+.app {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Темы */
+.light {
+  --bg-color: #fff;
+  --text-color: #000;
+  --panel-bg: #f7f7f7;
+  --button-bg: #4caf50;
+  --button-color: white;
+}
+
+.dark {
+  --bg-color: #121212;
+  --text-color: #eee;
+  --panel-bg: #1f1f1f;
+  --button-bg: #388e3c;
+  --button-color: white;
+}
+
+.red {
+  --bg-color: #fff0f0;
+  --text-color: #900;
+  --panel-bg: #f9d6d6;
+  --button-bg: #d32f2f;
+  --button-color: white;
+}
+
+.blue {
+  --bg-color: #e6f0ff;
+  --text-color: #003366;
+  --panel-bg: #cde1ff;
+  --button-bg: #1976d2;
+  --button-color: white;
+}

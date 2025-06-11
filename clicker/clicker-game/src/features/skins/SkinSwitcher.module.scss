@@ -1,0 +1,30 @@
+.panel {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+button {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #eee;
+  transition: 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #ddd;
+}
+
+.active {
+  background-color: #a0e0a0;
+  font-weight: bold;
+}
+
+.locked {
+  background-color: #f0d0d0;
+  color: #555;
+}
