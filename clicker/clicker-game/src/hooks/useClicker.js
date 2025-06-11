@@ -64,6 +64,8 @@ export const useClicker = () => {
     }
     load();
   }, []);
+  const clickSound = new Audio('/sounds/click.mp3');
+  clickSound.volume = 0.5;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -135,11 +137,15 @@ export const useClicker = () => {
   }, [antibonusActive]);
 
   const increaseCredits = () => {
-    const antiMultiplier = antibonusActive ? 0.2 : 1;
-    const boosterMultiplier = boosterActive ? 2 : 1;
-    const prestigeBonus = 1 + prestigePoints * 0.1;
-    setCredits(c => c + clickValue * boosterMultiplier * antiMultiplier * prestigeBonus);
-  };
+  clickSound.currentTime = 0;
+  clickSound.play().catch(() => {}); // чтобы не было ошибок, если быстро кликать
+
+  const antiMultiplier = antibonusActive ? 0.2 : 1;
+  const boosterMultiplier = boosterActive ? 2 : 1;
+  const prestigeBonus = 1 + prestigePoints * 0.1;
+  setCredits(c => c + clickValue * boosterMultiplier * antiMultiplier * prestigeBonus);
+};
+
 
   const buyUpgrade = (id) => {
     const upgrade = upgrades.find(u => u.id === id);
